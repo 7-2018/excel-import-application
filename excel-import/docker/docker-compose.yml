@@ -1,0 +1,34 @@
+version: '3.5'
+services:
+  excel-import:
+    container_name: excel-import
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    depends_on:
+      - postgres
+      - pgadmin
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=VFek3NFt
+      - POSTGRES_USER=Marta
+      - POSTGRES_DB=vacation-dates-db
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: marta@postgresadmin.com
+      PGADMIN_DEFAULT_PASSWORD: B6sgrRFF
+    ports:
+      - "5050:80"
